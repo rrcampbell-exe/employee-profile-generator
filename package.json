@@ -1,0 +1,26 @@
+{
+  "name": "employee-profile-generator",
+  "version": "1.0.0",
+  "description": "An application that generates and displays employee data based on user input.",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rrcampbell-exe/employee-profile-generator.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rrcampbell-exe/employee-profile-generator/issues"
+  },
+  "homepage": "https://github.com/rrcampbell-exe/employee-profile-generator#readme",
+  "dependencies": {
+    "inquirer": "^8.1.2",
+    "jest": "^27.0.6"
+  }
+}
