@@ -28,5 +28,5 @@ test('creates employee email address in HTML string', () => {
 test('returns employee data as entered by user', () => {
     const employee = new Employee('Peter Gibbons', 68, 'peter@initech.com')
     
-    expect(employee.getRole()).toEqual(expect.any(Object));
+    expect(employee.getRole()).toBe("employee");
 })

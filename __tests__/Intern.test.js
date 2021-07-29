@@ -1,6 +1,6 @@
 const Intern = require("../lib/Intern");
 
-jest.mock('../lib/Employee.js')
+// jest.mock('../lib/Employee.js')
 
 test('creates a new intern object', () => {
     const intern = new Intern ('Lawrence', 74, 'lawrence@initech.com', 'Hard Knocks')
@@ -19,5 +19,5 @@ test('returns school data as entered by user', () => {
 test('returns intern data as entered by user', () => {
     const intern = new Intern('Lawrence', 74, 'lawrence@initech.com', 'Hard Knocks')
     
-    expect(intern.getRole()).toEqual(expect.any(Object));
+    expect(intern.getRole()).toBe("intern");
 })

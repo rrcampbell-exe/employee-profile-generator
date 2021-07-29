@@ -1,8 +1,13 @@
 const inquirer = require('inquirer')
+const fs = require('fs')
+
+const Manager = require("./lib/Manager")
 
 let managerObj = {}
 let engineerObj = {}
 let internObj = {}
+
+const employees = [];
 
 // Employee class questions
 const managerQuestionData = [
@@ -255,7 +260,19 @@ function internQuestions() {
     .then(response => {
         internObj = response;
         console.log(internObj);
-        // writeFile
+
+        if (internObj.addAnother) {
+            if (internObj.addTeamMember.includes('Engineer')) {
+                engineerQuestions();
+                return
+            } else {
+                internQuestions();
+                return;
+            }
+        } else {
+            // writeFile
+            console.log("A page has been generated for " + managerObj.name + "'s team. Run index.html from the /dist folder to see the result.")
+        }
     })
 }
 
@@ -265,7 +282,11 @@ function init() {
     .prompt(managerQuestionData)
     .then(response => {
         managerObj = response
-        console.log(managerObj);
+        // console.log(managerObj);
+        const newMgr = new Manager(response.name, response.id,response.email, response.officeNumber);
+        // console.log(newMgr)
+        // console.log(newMgr.getRole())
+        employees.push(newMgr);
 
         if (managerObj.addAnother) {
             if (managerObj.addTeamMember.includes('Engineer')) {
