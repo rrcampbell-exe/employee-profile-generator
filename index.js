@@ -4,7 +4,7 @@ let managerObj = {}
 let engineerObj = {}
 let internObj = {}
 
-// Manager class questions
+// Employee class questions
 const managerQuestionData = [
     {
         type: 'input',
@@ -139,9 +139,31 @@ const engineerQuestionData = [
             }
         }
     },
-
-    // add another team member or writeFile
-
+    {
+        type: 'confirm',
+        name: 'addAnother',
+        message: "Would you like to add another member to " + managerObj.name + "'s team?",
+        when: ({ gitHub }) => {
+            if (gitHub) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+    },
+    {
+        type: 'list',
+        name: 'addTeamMember',
+        message: "Which role would you like to add to " + managerObj.name + "'s team?",
+        choices: ['Engineer', 'Intern'],
+        when: ({addAnother}) => {
+            if (addAnother) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+    },
 ]
 
 // Intern class questions
@@ -208,8 +230,21 @@ function engineerQuestions() {
     .prompt(engineerQuestionData)
     .then(response => {
         engineerObj = response;
+        console.log(managerObj);
         console.log(engineerObj);
-        // writeFile
+
+        if (engineerObj.addAnother) {
+            if (engineerObj.addTeamMember.includes('Engineer')) {
+                engineerQuestions();
+                return
+            } else {
+                internQuestions();
+                return;
+            }
+        } else {
+            // writeFile
+            console.log("A page has been generated for " + managerObj.name + "'s team. Run index.html from the /dist folder to see the result.")
+        }
     })
 }
 
