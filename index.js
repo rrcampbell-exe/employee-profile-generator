@@ -5,7 +5,7 @@ const Manager = require("./lib/Manager")
 const Intern = require("./lib/Intern")
 const Engineer = require("./lib/Engineer")
 
-const generatePage = require('./src/generatePage')
+const generatePage = require("./src/generatePage")
 
 let managerObj = {}
 let engineerObj = {}
