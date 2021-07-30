@@ -2,6 +2,10 @@ const inquirer = require('inquirer')
 const fs = require('fs')
 
 const Manager = require("./lib/Manager")
+const Intern = require("./lib/Intern")
+const Engineer = require("./lib/Engineer")
+
+const generatePage = require('./src/generatePage')
 
 let managerObj = {}
 let engineerObj = {}
@@ -147,7 +151,7 @@ const engineerQuestionData = [
     {
         type: 'confirm',
         name: 'addAnother',
-        message: "Would you like to add another member to " + managerObj.name + "'s team?",
+        message: "Would you like to add another member to this team?",
         when: ({ gitHub }) => {
             if (gitHub) {
                 return true;
@@ -159,7 +163,7 @@ const engineerQuestionData = [
     {
         type: 'list',
         name: 'addTeamMember',
-        message: "Which role would you like to add to " + managerObj.name + "'s team?",
+        message: "Which role would you like to add to this team?",
         choices: ['Engineer', 'Intern'],
         when: ({addAnother}) => {
             if (addAnother) {
@@ -225,8 +229,31 @@ const internQuestionData = [
             }
         }
     },
-
-    // add another team member or writeFile
+    {
+        type: 'confirm',
+        name: 'addAnother',
+        message: "Would you like to add another member to this team?",
+        when: ({ school }) => {
+            if (school) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+    },
+    {
+        type: 'list',
+        name: 'addTeamMember',
+        message: "Which role would you like to add to this team?",
+        choices: ['Engineer', 'Intern'],
+        when: ({addAnother}) => {
+            if (addAnother) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+    },
 ]
 
 // function for engineer questions
@@ -235,8 +262,9 @@ function engineerQuestions() {
     .prompt(engineerQuestionData)
     .then(response => {
         engineerObj = response;
-        console.log(managerObj);
-        console.log(engineerObj);
+        const newEng = new Engineer(response.name, response.id,response.email, response.gitHub);
+        employees.push(newEng);
+        console.log(employees);
 
         if (engineerObj.addAnother) {
             if (engineerObj.addTeamMember.includes('Engineer')) {
@@ -247,8 +275,10 @@ function engineerQuestions() {
                 return;
             }
         } else {
-            // writeFile
-            console.log("A page has been generated for " + managerObj.name + "'s team. Run index.html from the /dist folder to see the result.")
+            fs.writeFile(`./dist/index.html`, generatePage(employees), (err) => {
+                console.log("A page has been generated for " + managerObj.name + "'s team. Run index.html from the /dist folder to see the result.")
+                if (err) throw err
+            })
         }
     })
 }
@@ -259,7 +289,9 @@ function internQuestions() {
     .prompt(internQuestionData)
     .then(response => {
         internObj = response;
-        console.log(internObj);
+        const newIntern = new Intern(response.name, response.id,response.email, response.school);
+        employees.push(newIntern);
+        console.log(employees);
 
         if (internObj.addAnother) {
             if (internObj.addTeamMember.includes('Engineer')) {
@@ -270,8 +302,10 @@ function internQuestions() {
                 return;
             }
         } else {
-            // writeFile
-            console.log("A page has been generated for " + managerObj.name + "'s team. Run index.html from the /dist folder to see the result.")
+            fs.writeFile(`./dist/index.html`, generatePage(employees), (err) => {
+                console.log("A page has been generated for " + managerObj.name + "'s team. Run index.html from the /dist folder to see the result.")
+                if (err) throw err
+            })
         }
     })
 }
@@ -282,11 +316,9 @@ function init() {
     .prompt(managerQuestionData)
     .then(response => {
         managerObj = response
-        // console.log(managerObj);
         const newMgr = new Manager(response.name, response.id,response.email, response.officeNumber);
-        // console.log(newMgr)
-        // console.log(newMgr.getRole())
         employees.push(newMgr);
+        console.log(employees);
 
         if (managerObj.addAnother) {
             if (managerObj.addTeamMember.includes('Engineer')) {
@@ -297,8 +329,10 @@ function init() {
                 return;
             }
         } else {
-            // writeFile
-            console.log("A page has been generated for " + managerObj.name + "'s team. Run index.html from the /dist folder to see the result.")
+            fs.writeFile(`./dist/index.html`, generatePage(employees), (err) => {
+                console.log("A page has been generated for " + managerObj.name + "'s team. Run index.html from the /dist folder to see the result.")
+                if (err) throw err
+            })
         }
     })
 }
