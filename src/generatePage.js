@@ -1,55 +1,89 @@
 // GENERATE CARDS FOR UNIQUE ROLLS
 
+// determine role of employee
+function roleDetermine(data) {
+    console.log(data)
+    const cards={
+        manager: [],
+        engineer:[],
+        intern:[]
+    }
+    for (let i = 0; i < data.length; i++) {
+        const employeeSort = data[i];
+        switch (employeeSort.getRole()) {
+            case "Manager":
+                cards.manager.push(generateManager(employeeSort))
+                break;
+            case "Engineer":
+                console.log(employeeSort)
+                cards.engineer.push(generateEngineer(employeeSort))
+                break;
+            case "Intern":
+                console.log(employeeSort)
+                cards.intern.push(generateIntern(employeeSort))
+                break;
+        }
+    }
+    return cards
+}
+
 // manager card
-function generateManager(data) {
+function generateManager(manager) {
+    // roleDetermine(data)
     return `
 <div class="card" style="width: 18rem;">
     <div class="card-body">
-      <h5 class="card-title">${data[0].name}</h5>
+      <h5 class="card-title">${manager.name}</h5>
       <div class="employee-position">
         <span class="oi oi-briefcase"></span>
-        ${data[0].getRole()}
+        ${manager.getRole()}
       </div>
     </div>
     <ul class="list-group list-group-flush">
-      <li class="list-group-item">ID: ${data[0].id}</li>
-      <li class="list-group-item">Email: <a href="mailto:${data[0].email}">${data[0].email}</a></li>
-      <li class="list-group-item">Office Number: ${data[0].officeNumber}</li>
+      <li class="list-group-item">ID: ${manager.id}</li>
+      <li class="list-group-item">Email: <a href="mailto:${manager.email}">${manager.email}</a></li>
+      <li class="list-group-item">Office Number: ${manager.officeNumber}</li>
     </ul>
 </div>`
 }
 
 // engineer cards
-function generateEngineer(data) {
-    if (data.getRole() = "Engineer") {
-        for (let i = 0; i < data.getRole().length; i++) {
-            return `
+const generateEngineer = employee => `
         <div class="card" style="width: 18rem;">
         <div class="card-body">
-          <h5 class="card-title">${data[i].name}</h5>
+          <h5 class="card-title">${employee.name}</h5>
           <div class="employee-position">
             <span class="oi oi-code"></span>
-            ${data[i].getRole()}
+            ${employee.getRole()}
           </div>
         </div>
         <ul class="list-group list-group-flush">
-          <li class="list-group-item">ID: ${data[i].id}</li>
-          <li class="list-group-item">Email: <a href="mailto:${data[i].email}">${data[i].email}</a></li>
-          <li class="list-group-item">GitHub: <a href="mailto:${data[i].gitHub}">${data[i].gitHub}</a></li>
+          <li class="list-group-item">ID: ${employee.id}</li>
+          <li class="list-group-item">Email: <a href="mailto:${employee.email}">${employee.email}</a></li>
+          <li class="list-group-item">GitHub: <a href="mailto:${employee.gitHub}">${employee.gitHub}</a></li>
         </ul>
         </div>`
-        }
-    } 
-    return ''
-}
 
 // intern cards
-function generateIntern(data) {
-    console.log(data)
-}
+const generateIntern = employee => `
+        <div class="card" style="width: 18rem;">
+        <div class="card-body">
+          <h5 class="card-title">${employee.name}</h5>
+          <div class="employee-position">
+            <span class="oi oi-code"></span>
+            ${employee.getRole()}
+          </div>
+        </div>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item">ID: ${employee.id}</li>
+          <li class="list-group-item">Email: <a href="mailto:${employee.email}">${employee.email}</a></li>
+          <li class="list-group-item">School: ${employee.school}</li>
+        </ul>
+        </div>`
 
 // FINAL LAYOUT OF HTML PAGE
 function generatePage(data) {
+    const cards = roleDetermine(data)
     return `<!DOCTYPE html>
     <html lang="en">
     
@@ -71,24 +105,25 @@ function generatePage(data) {
         <div class="container">
             <div class="row">
                 <div class="col-12">
-                    ${generateManager(data)}
+                    ${cards.manager}
                 </div>
             </div>
         </div>
     
         <h2>Team Members</h2>
+        ${cards.engineer.length ? `<h3>Engineers</h3>` : ""}
         <div class="container">
             <div class="row">
-                <div class="col-12">
-                    ${generateEngineer(data)}
+                <div class="col-4">
+                    ${cards.engineer.join('')}
                 </div>
             </div>
         </div>
-    
+        ${cards.intern.length ? `<h3>Interns</h3>` : ""}
         <div class="container">
             <div class="row">
-                <div class="col-12">
-                    ${generateIntern(data)}
+                <div class="col-4">
+                    ${cards.intern.join('')}
                 </div>
             </div>
         </div>
