@@ -264,7 +264,6 @@ function engineerQuestions() {
         engineerObj = response;
         const newEng = new Engineer(response.name, response.id,response.email, response.gitHub);
         employees.push(newEng);
-        console.log(employees);
 
         if (engineerObj.addAnother) {
             if (engineerObj.addTeamMember.includes('Engineer')) {
@@ -291,7 +290,6 @@ function internQuestions() {
         internObj = response;
         const newIntern = new Intern(response.name, response.id,response.email, response.school);
         employees.push(newIntern);
-        console.log(employees);
 
         if (internObj.addAnother) {
             if (internObj.addTeamMember.includes('Engineer')) {
@@ -318,7 +316,6 @@ function init() {
         managerObj = response
         const newMgr = new Manager(response.name, response.id,response.email, response.officeNumber);
         employees.push(newMgr);
-        console.log(employees);
 
         if (managerObj.addAnother) {
             if (managerObj.addTeamMember.includes('Engineer')) {
