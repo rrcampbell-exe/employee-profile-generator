@@ -2,7 +2,6 @@
 
 // determine role of employee
 function roleDetermine(data) {
-    console.log(data)
     const cards={
         manager: [],
         engineer:[],
@@ -15,11 +14,9 @@ function roleDetermine(data) {
                 cards.manager.push(generateManager(employeeSort))
                 break;
             case "Engineer":
-                console.log(employeeSort)
                 cards.engineer.push(generateEngineer(employeeSort))
                 break;
             case "Intern":
-                console.log(employeeSort)
                 cards.intern.push(generateIntern(employeeSort))
                 break;
         }
@@ -49,7 +46,7 @@ function generateManager(manager) {
 
 // engineer cards
 const generateEngineer = employee => `
-        <div class="card" style="width: 18rem;">
+        <div class="card col-4" style="width: 18rem;">
         <div class="card-body">
           <h5 class="card-title">${employee.name}</h5>
           <div class="employee-position">
@@ -60,17 +57,17 @@ const generateEngineer = employee => `
         <ul class="list-group list-group-flush">
           <li class="list-group-item">ID: ${employee.id}</li>
           <li class="list-group-item">Email: <a href="mailto:${employee.email}">${employee.email}</a></li>
-          <li class="list-group-item">GitHub: <a href="mailto:${employee.gitHub}">${employee.gitHub}</a></li>
+          <li class="list-group-item">GitHub: <a href="https://www.github.com/${employee.gitHub}/" target="_blank">${employee.gitHub}</a></li>
         </ul>
         </div>`
 
 // intern cards
 const generateIntern = employee => `
-        <div class="card" style="width: 18rem;">
+        <div class="card col-4" style="width: 18rem;">
         <div class="card-body">
           <h5 class="card-title">${employee.name}</h5>
           <div class="employee-position">
-            <span class="oi oi-code"></span>
+            <span class="oi oi-clipboard"></span>
             ${employee.getRole()}
           </div>
         </div>
@@ -96,15 +93,18 @@ function generatePage(data) {
             integrity='sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x' crossorigin='anonymous'>
         <link rel="stylesheet"
             href="https://cdnjs.cloudflare.com/ajax/libs/open-iconic/1.1.1/font/css/open-iconic-bootstrap.min.css" />
-        <link rel="stylesheet" href="./dist/style.css">
+        <link rel="stylesheet" href="./style.css">
     </head>
+
+    <header>
+        <h1>${data[0].name}'s Team</h1>
+    </header>
     
     <body>
-        <h1>${data[0].name}'s Team</h1>
         <h2>Team Manager</h2>
         <div class="container">
             <div class="row">
-                <div class="col-12">
+                <div class="col-12 card-container">
                     ${cards.manager}
                 </div>
             </div>
@@ -114,7 +114,7 @@ function generatePage(data) {
         ${cards.engineer.length ? `<h3>Engineers</h3>` : ""}
         <div class="container">
             <div class="row">
-                <div class="col-4">
+                <div class="col-12 card-container">
                     ${cards.engineer.join('')}
                 </div>
             </div>
@@ -122,7 +122,7 @@ function generatePage(data) {
         ${cards.intern.length ? `<h3>Interns</h3>` : ""}
         <div class="container">
             <div class="row">
-                <div class="col-4">
+                <div class="col-12 card-container">
                     ${cards.intern.join('')}
                 </div>
             </div>
