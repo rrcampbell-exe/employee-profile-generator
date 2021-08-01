@@ -26,7 +26,6 @@ function roleDetermine(data) {
 
 // manager card
 function generateManager(manager) {
-    // roleDetermine(data)
     return `
 <div class="card" style="width: 18rem;">
     <div class="card-body">
