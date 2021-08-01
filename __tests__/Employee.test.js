@@ -13,10 +13,10 @@ test('creates employee name in HTML string', () => {
     expect(employee.getName()).toEqual(expect.any(String))
 })
 
-test('creates employee ID in HTML string', () => {
+test('creates employee ID', () => {
     const employee = new Employee('Peter Gibbons', 68, 'peter@initech.com')
 
-    expect(employee.getId()).toEqual(expect.any(String))
+    expect(employee.getId()).toEqual(expect.any(Number))
 })
 
 test('creates employee email address in HTML string', () => {
@@ -25,8 +25,8 @@ test('creates employee email address in HTML string', () => {
     expect(employee.getEmail()).toEqual(expect.any(String))
 })
 
-test('returns employee data as entered by user', () => {
+test('returns "Employee"', () => {
     const employee = new Employee('Peter Gibbons', 68, 'peter@initech.com')
     
-    expect(employee.getRole()).toBe("employee");
+    expect(employee.getRole()).toBe("Employee");
 })

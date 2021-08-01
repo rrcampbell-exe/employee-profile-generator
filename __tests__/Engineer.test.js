@@ -1,7 +1,5 @@
 const Engineer = require("../lib/Engineer");
 
-// jest.mock('../lib/Employee.js')
-
 test('creates a new engineer object', () => {
     const engineer = new Engineer ('Michael Bolton', 70, 'michael@initech.com', 'mike-bolton')
     expect(engineer.name).toEqual(expect.any(String));
@@ -16,8 +14,8 @@ test('returns engineer GitHub as entered by user', () => {
     expect(engineer.getGithub()).toEqual(expect.any(String));
 })
 
-test('returns engineer data as entered by user', () => {
+test('returns "Engineer"', () => {
     const engineer = new Engineer('Michael Bolton', 70, 'michael@initech.com', 'mike-bolton')
     
-    expect(engineer.getRole()).toBe("engineer");
+    expect(engineer.getRole()).toBe("Engineer");
 })

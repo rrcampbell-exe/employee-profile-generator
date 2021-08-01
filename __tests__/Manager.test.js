@@ -1,7 +1,5 @@
 const Manager = require("../lib/Manager");
 
-// jest.mock('../lib/Employee.js')
-
 test('creates a new manager object', () => {
     const manager = new Manager("William", 1, "yes", 123)
     
@@ -14,8 +12,8 @@ test('creates a new manager object', () => {
     expect(manager.officeNumber).toEqual(expect.any(Number));
 })
 
-test('returns manager data as entered by user', () => {
+test('returns "Manager"', () => {
     const manager = new Manager('Peter Gibbons', 68, 'peter@initech.com', 100)
     
-    expect(manager.getRole()).toBe("manager");
+    expect(manager.getRole()).toBe("Manager");
 })
